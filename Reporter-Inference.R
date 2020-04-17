@@ -535,7 +535,7 @@ inf.writing <- function(what="inference",vars.name.pass=NULL,vars.val.pass=NULL,
       
       #Optimization considering variable type to increase efficiency
       nfactor.count <- length(which(sapply(vars.val.pass, class)=="factor"))
-      nnumeric.count <- length(which(sapply(vars.val.pass, class) %in% c("numeric","integer")))
+      nnumeric.count <- length(which(sapply(vars.val.pass, class) %in% c("numeric","integer","double")))
       
       if(nfactor.count > nnumeric.count)
       {
