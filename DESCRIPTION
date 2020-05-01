@@ -1,0 +1,16 @@
+Package: docinfeR
+Type: Package
+Title: Automatic Reporter for Inference Analysis with R
+Version: 202001.01.0
+Author: Rui Portocarrero Sarmento, Vera Costa
+Maintainer: Rui P. Sarmento <email@ruisarmento.com>
+Description: This package is used for generation of a document (.docx file) with Inference Analysis Reporting of a selected Dataset.
+License: GPL-2
+Encoding: UTF-8
+LazyData: false
+Imports: 
+Depends: 
+LinkingTo: 
+RcppModules: 
+SystemRequirements: 
+RoxygenNote: 
