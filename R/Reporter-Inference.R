@@ -9,8 +9,14 @@ tic("Global")
 # Inference Report
 my.OS <<- Sys.info()['sysname']
 
+
+main <- function(path){
+
 #Read .csv File
-path <- file.choose(new = FALSE)
+
+if(path == ""){
+	path <- file.choose(new = FALSE)
+}
 file_in <- file(path,"r")
 file_out <- file(paste(path,"-REPORT-INFERENCE-ALL.docx",sep = ""),open="wt", blocking = FALSE, encoding ="UTF-8")
 
@@ -636,3 +642,8 @@ warning("Passed Final Print")
 sink(type = "message")
 sink()
 #end and print
+}
+
+go <- function(path=""){
+	main(path)
+}

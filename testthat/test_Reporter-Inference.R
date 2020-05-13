@@ -1,4 +1,4 @@
-source("../R/Reporter-Inference.R")
+source("../R/Reporter-Inference.R",path="../data/data.csv")
 
 if(file.exists(file_out) && fileSize(file_out, units = "KB") > 0 ){ #success in file output creation
 
