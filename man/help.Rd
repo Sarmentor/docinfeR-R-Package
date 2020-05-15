@@ -6,7 +6,7 @@
 \method{docinfeR}{default}()
 \arguments{
 \item{path}{the path to a .csv file for analysis and subsequential report output}
-\item{type}{ the type of variables to perform analysis, with possible values: "all", "numeric", "integer", "double", "factor", "character"}
+\item{var.type}{the type of variables to perform analysis, with possible values: "all", "numeric", "integer", "double", "factor", "character"}
 }
 \value{A file in .docx with the output report}
 \author{Rui Portocarrero Sarmento, Vera Costa}

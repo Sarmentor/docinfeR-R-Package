@@ -19,7 +19,7 @@ if(path == ""){
 	path <- file.choose(new = FALSE)
 }
 file_in <- file(path,"r")
-file_out <- file(paste(path,"-REPORT-INFERENCE-ALL.docx",sep = ""),open="wt", blocking = FALSE, encoding ="UTF-8")
+file_out <- file(paste(path,"-REPORT-INFERENCE-",var.type,".docx",sep = ""),open="wt", blocking = FALSE, encoding ="UTF-8")
 
 #defining the document name
 if(grepl("linux",tolower(my.OS))){
@@ -659,6 +659,7 @@ sink()
 #' `docinfeR()` asks for a .csv file with data and returns a report (.docx) with Inference Report concerning all possible combinations of variables (i.e. columns).
 #'
 #' @param path (Optional) A character vector with the path to data file. If empty character string (""), interface will appear to choose file. 
+#' @param var.type (Optional) The type of variables to perform analysis, with possible values: "all", "numeric", "integer", "double", "factor", "character". 
 #' @return The output
 #'   will be a document in the same folder of the data file.
 #' @examples
