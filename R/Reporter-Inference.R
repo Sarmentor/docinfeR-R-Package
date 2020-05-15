@@ -644,6 +644,22 @@ sink()
 #end and print
 }
 
-go <- function(path=""){
+#' Inference Report in .docx file
+#'
+#' `docinfeR()` asks for a .csv file with data and returns a report (.docx) with Inference Report concerning all possible combinations of variables (i.e. columns).
+#'
+#' This is a generic function: methods can be defined for it directly
+#' or via the [Summary] group generic. For this to work properly,
+#' the arguments `...` should be unnamed, and dispatch is on the
+#' first argument.
+#'
+#' @param path (Optional) A character vector with the path to data file. If empty character string (""), interface will appear to choose file. 
+#' @return The output
+#'   will be a document in the same folder of the data file.
+#' @examples
+#' data(iris)
+#' write.csv(iris,file="iriscsvfile.csv")
+#' docinfeR(path="iriscsvfile.csv")
+docinfeR <- function(path=""){
 	main(path)
 }
