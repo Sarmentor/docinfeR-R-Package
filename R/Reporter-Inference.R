@@ -10,7 +10,8 @@ tic("Global")
 my.OS <<- Sys.info()['sysname']
 
 
-main <- function(path){
+
+main <- function(path, var.type="all"){
 
 #Read .csv File
 
@@ -605,6 +606,15 @@ as.class <- FALSE
   
   #variables combinations
   data.vars.vector <- names(data)
+  
+  #type of selected vars
+  data.vars.vector <- data.vars.vector[which(class(data)==var.type)]
+  
+  if (length(data.vars.vector) < 2){
+	warning(paste("Not enough variables of type", var.type, "to proceed with Inference Reporting. Suggestion: use var.type input equal to all", sep=" "))
+	return()
+  }
+  
   var.comb <- t(combn(data.vars.vector,2))
   
   inf.writing(what = "inference",vars.name.pass=NULL,vars.val.pass=NULL,analysis="header1")
@@ -648,11 +658,6 @@ sink()
 #'
 #' `docinfeR()` asks for a .csv file with data and returns a report (.docx) with Inference Report concerning all possible combinations of variables (i.e. columns).
 #'
-#' This is a generic function: methods can be defined for it directly
-#' or via the [Summary] group generic. For this to work properly,
-#' the arguments `...` should be unnamed, and dispatch is on the
-#' first argument.
-#'
 #' @param path (Optional) A character vector with the path to data file. If empty character string (""), interface will appear to choose file. 
 #' @return The output
 #'   will be a document in the same folder of the data file.
@@ -660,6 +665,6 @@ sink()
 #' data(iris)
 #' write.csv(iris,file="iriscsvfile.csv")
 #' docinfeR(path="iriscsvfile.csv")
-docinfeR <- function(path=""){
-	main(path)
+docinfeR <- function(path="", var.type="all"){
+	main(path,var.type="all")
 }
