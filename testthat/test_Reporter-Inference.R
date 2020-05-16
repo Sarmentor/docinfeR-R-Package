@@ -1,8 +1,9 @@
+require(testthat)
 source("../R/Reporter-Inference.R")
 
-docinfeR(path="../data/data.csv")
+docinfeR(path="../data/data.csv",var.type="all")
 
-if(file.exists(file_out) && fileSize(file_out, units = "KB") > 0 ){ #success in file output creation
+if(file.exists(out.path) && file.info(out.path, units = "KB")$"size" > 0 ){ #success in file output creation
 
    out.flag <- 1
 

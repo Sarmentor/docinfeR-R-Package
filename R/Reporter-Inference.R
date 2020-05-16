@@ -19,7 +19,7 @@ if(path == ""){
 	path <- file.choose(new = FALSE)
 }
 file_in <- file(path,"r")
-file_out <- file(paste(path,"-REPORT-INFERENCE-",var.type,".docx",sep = ""),open="wt", blocking = FALSE, encoding ="UTF-8")
+file_out <- file(out.path <<- paste(path,"-REPORT-INFERENCE-",var.type,".docx",sep = ""),open="wt", blocking = FALSE, encoding ="UTF-8")
 
 #defining the document name
 if(grepl("linux",tolower(my.OS))){
