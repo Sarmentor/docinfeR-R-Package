@@ -666,6 +666,8 @@ sink()
 #' data(iris)
 #' write.csv(iris,file="iriscsvfile.csv")
 #' docinfeR(path="iriscsvfile.csv")
+#' @references
+#' \insertAllCited{}
 docinfeR <- function(path="", var.type="all"){
 	main(path,var.type="all")
 }
