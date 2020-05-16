@@ -8,8 +8,14 @@ Description: This package is used for generation of a document (.docx file) with
 License: GPL-2
 Encoding: UTF-8
 LazyData: false
-Imports: 
-Depends: 
+Depends: R (>= 3.1.0)
+Imports:
+	officer,
+	nortest,
+	flextable,
+	tidyverse,
+	broom,
+	tictoc
 LinkingTo: 
 RcppModules: 
 SystemRequirements: 
