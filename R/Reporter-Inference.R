@@ -663,9 +663,11 @@ sink()
 #' @return The output
 #'   will be a document in the same folder of the data file.
 #' @examples
+#' \dontrun{
 #' data(iris)
 #' write.csv(iris,file="iriscsvfile.csv")
 #' docinfeR(path="iriscsvfile.csv")
+#' }
 #' @references
 #' \insertAllCited{}
 docinfeR <- function(path="", var.type="all"){
