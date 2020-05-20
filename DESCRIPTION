@@ -15,7 +15,9 @@ Imports:
 	flextable,
 	tidyverse,
 	broom,
-	tictoc
+	tictoc,
+	stats,
+	utils
 LinkingTo: 
 RcppModules: 
 SystemRequirements: 
