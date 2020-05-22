@@ -1,7 +1,6 @@
 library(officer)
 library(nortest)
 library(flextable)
-library(tidyverse)
 library(broom)
 library(tictoc)
 
@@ -68,7 +67,7 @@ factor.factor <- function(vars.val.pass,var1type,var2type){
       if(ratio1>0.20 && ratio1 < 0.80){
         
         
-        val.test.inf <- flextable::flextable(tidyverse::tidy(my.fisher <- stats::fisher.test(x = crosstbl, alternative = "two.sided",simulate.p.value = TRUE)))
+        val.test.inf <- flextable::flextable(broom::tidy(my.fisher <- stats::fisher.test(x = crosstbl, alternative = "two.sided",simulate.p.value = TRUE)))
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
         
@@ -81,7 +80,7 @@ factor.factor <- function(vars.val.pass,var1type,var2type){
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
         
       }else if(ratio1 < 0.20){
-        val.test.inf <- flextable::flextable(tidyverse::tidy(my.fisher <- stats::fisher.test(x = crosstbl, alternative = "two.sided",simulate.p.value = TRUE)))
+        val.test.inf <- flextable::flextable(broom::tidy(my.fisher <- stats::fisher.test(x = crosstbl, alternative = "two.sided",simulate.p.value = TRUE)))
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
         
@@ -94,7 +93,7 @@ factor.factor <- function(vars.val.pass,var1type,var2type){
       } 
     }else{
       if(ratio1>0.20 && ratio1 < 0.80){
-        val.test.inf <- flextable::flextable(tidyverse::tidy(my.chisq <- stats::chisq.test(x = crosstbl)))####what happens if there are values in the crosstbl equal to 5
+        val.test.inf <- flextable::flextable(broom::tidy(my.chisq <- stats::chisq.test(x = crosstbl)))####what happens if there are values in the crosstbl equal to 5
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
         
@@ -106,7 +105,7 @@ factor.factor <- function(vars.val.pass,var1type,var2type){
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
         
       }else if(ratio1 < 0.20){
-        val.test.inf <- flextable::flextable(tidyverse::tidy(my.chisq <- stats::chisq.test(x = crosstbl)))####what happens if there are values in the crosstbl equal to 5
+        val.test.inf <- flextable::flextable(broom::tidy(my.chisq <- stats::chisq.test(x = crosstbl)))####what happens if there are values in the crosstbl equal to 5
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
         
@@ -144,7 +143,7 @@ factor.numeric.integer <- function(vars.val.pass,var1type,var2type){
     if(length(unique(aux.data[,var1type]))==2){###What do you mean with unique(var1)==2?
       
       #Mann-Whitney
-      test <-  tidyverse::tidy(my.wilcox <- stats::wilcox.test(aux.data[,var2type]~aux.data[,var1type]))  #stats::wilcox.test(y~A) where y is numeric and A is A binary factor (independent)
+      test <-  broom::tidy(my.wilcox <- stats::wilcox.test(aux.data[,var2type]~aux.data[,var1type]))  #stats::wilcox.test(y~A) where y is numeric and A is A binary factor (independent)
       test$data.name<-paste(var2type,"by",var1type,sep = " ")
       val.test.inf <- flextable::flextable(test)
       flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -161,7 +160,7 @@ factor.numeric.integer <- function(vars.val.pass,var1type,var2type){
         warning(Sys.time()," - var1:",paste(var1type)," - [ERROR][INF] Error in stats::kruskal.test.default: all observations are in the same group\n\n")
         return({0})
       }else{
-        test <- tidyverse::tidy(my.kruskal <- stats::kruskal.test(x=aux.data[,var2type],g=aux.data[,var1type]))#https://www.statmethods.net/stats/nonparametric.html #stats::kruskal.test(y~A) # where y1 is numeric and A is a factor
+        test <- broom::tidy(my.kruskal <- stats::kruskal.test(x=aux.data[,var2type],g=aux.data[,var1type]))#https://www.statmethods.net/stats/nonparametric.html #stats::kruskal.test(y~A) # where y1 is numeric and A is a factor
         test$data.name<-paste(var2type,"by",var1type,sep = " ")
         val.test.inf <- flextable::flextable(test)
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -181,7 +180,7 @@ factor.numeric.integer <- function(vars.val.pass,var1type,var2type){
     if(length(unique(vars.val.pass[,var1type]))==2){
       
       #ttest
-      tryCatch(stop(val.test.inf <- flextable::flextable(tidyverse::tidy(my.t.test <- stats::t.test(vars.val.pass[,var2type]~vars.val.pass[,var1type], var.equal=TRUE)))), error = function(e) {warning(Sys.time()," - var1:",paste(var1type)," - var2:",paste(var2type)," - [ERROR][INF] ",e,"\n\n")}, finally = {
+      tryCatch(stop(val.test.inf <- flextable::flextable(broom::tidy(my.t.test <- stats::t.test(vars.val.pass[,var2type]~vars.val.pass[,var1type], var.equal=TRUE)))), error = function(e) {warning(Sys.time()," - var1:",paste(var1type)," - var2:",paste(var2type)," - [ERROR][INF] ",e,"\n\n")}, finally = {
         # stats::t.test(y~x) where y is numeric and x is a binary factor
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
@@ -198,7 +197,7 @@ factor.numeric.integer <- function(vars.val.pass,var1type,var2type){
         warning(Sys.time()," - var1:",paste(var1type)," - [ERROR][INF] Error in contrasts<-: contrasts can be applied only to factors with 2 or more levels\n\n")
         return({0})
       }else{
-        test<- tidyverse::tidy(my.aov <- stats::aov(vars.val.pass[,var2type] ~ vars.val.pass[,var1type]))     #"Anova"
+        test<- broom::tidy(my.aov <- stats::aov(vars.val.pass[,var2type] ~ vars.val.pass[,var1type]))     #"Anova"
         my.aov$p.value <- stats::summary.aov(my.aov)[[1]][["Pr(>F)"]][1]
         
         if(is.null(my.aov$p.value)){
@@ -241,7 +240,7 @@ numeric.integer.factor <- function(vars.val.pass,var1type,var2type){
     if(length(unique(aux.data[,var2type]))==2){
       
       #Mann-Whitney
-      test <-  tidyverse::tidy(my.wilcox <- stats::wilcox.test(aux.data[,var1type]~aux.data[,var2type]))  #stats::wilcox.test(y~A) where y is numeric and A is A binary factor (independent)
+      test <-  broom::tidy(my.wilcox <- stats::wilcox.test(aux.data[,var1type]~aux.data[,var2type]))  #stats::wilcox.test(y~A) where y is numeric and A is A binary factor (independent)
       test$data.name<-paste(var1type,"by",var2type,sep = " ")
       val.test.inf <- flextable::flextable(test)
       flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -257,7 +256,7 @@ numeric.integer.factor <- function(vars.val.pass,var1type,var2type){
         warning(Sys.time()," - var2:",paste(var2type)," - [ERROR][INF] Error in stats::kruskal.test.default: all observations are in the same group\n\n")
         return({0})
       }else{
-        test <- tidyverse::tidy(my.kruskal <- stats::kruskal.test(aux.data[,var1type]~aux.data[,var2type]))#https://www.statmethods.net/stats/nonparametric.html #stats::kruskal.test(y~A) # where y1 is numeric and A is a factor
+        test <- broom::tidy(my.kruskal <- stats::kruskal.test(aux.data[,var1type]~aux.data[,var2type]))#https://www.statmethods.net/stats/nonparametric.html #stats::kruskal.test(y~A) # where y1 is numeric and A is a factor
         test$data.name<-paste(var1type,"by",var2type,sep = " ")
         val.test.inf <- flextable::flextable(test)
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -276,7 +275,7 @@ numeric.integer.factor <- function(vars.val.pass,var1type,var2type){
     vars.val.pass <- stats::na.omit(vars.val.pass)
     if(length(unique(vars.val.pass[,var2type]))==2){###What do you mean with unique(var1)==2?
       #ttest
-      tryCatch(stop(val.test.inf <- flextable::flextable(tidyverse::tidy(my.t.test <- stats::t.test(vars.val.pass[,var1type]~vars.val.pass[,var2type], var.equal=TRUE)))), error = function(e) {warning(Sys.time()," - var1:",paste(var1type)," - var2:",paste(var2type)," - [ERROR][INF] ",e,"\n\n")}, finally = {
+      tryCatch(stop(val.test.inf <- flextable::flextable(broom::tidy(my.t.test <- stats::t.test(vars.val.pass[,var1type]~vars.val.pass[,var2type], var.equal=TRUE)))), error = function(e) {warning(Sys.time()," - var1:",paste(var1type)," - var2:",paste(var2type)," - [ERROR][INF] ",e,"\n\n")}, finally = {
         # stats::t.test(y~x) where y is numeric and x is a binary factor
         flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
         officer::body_add_par(my_doc, "", style = "Normal",pos="after") # blank paragraph
@@ -293,7 +292,7 @@ numeric.integer.factor <- function(vars.val.pass,var1type,var2type){
         return({0})
       }else{
         
-        test<- tidyverse::tidy(my.aov <- stats::aov(vars.val.pass[,var1type] ~ vars.val.pass[,var2type]))     #"Anova"
+        test<- broom::tidy(my.aov <- stats::aov(vars.val.pass[,var1type] ~ vars.val.pass[,var2type]))     #"Anova"
         my.aov$p.value <- stats::summary.aov(my.aov)[[1]][["Pr(>F)"]][1]
         
         if(is.null(my.aov$p.value)){
@@ -345,7 +344,7 @@ numeric.integer.numeric.integer <- function(vars.val.pass,var1type,var2type){
     if(p.value.v1>0.05 && p.value.v2>0.05){
       
       #Pearson Correlation
-      test <- tidyverse::tidy(my.pearson <- stats::cor.test(vars.val.pass[,var1type],vars.val.pass[,var2type],method = "pearson"))
+      test <- broom::tidy(my.pearson <- stats::cor.test(vars.val.pass[,var1type],vars.val.pass[,var2type],method = "pearson"))
       test$call <- paste(var1type,"and",var2type,")",sep = " ")  
       val.test.inf <- flextable::flextable(test)
       flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -361,7 +360,7 @@ numeric.integer.numeric.integer <- function(vars.val.pass,var1type,var2type){
       
     }else{
       #Spearman Correlation
-      test <- tidyverse::tidy(my.Spearman <- stats::cor.test(vars.val.pass[,var1type],vars.val.pass[,var2type],method = "spearman"))
+      test <- broom::tidy(my.Spearman <- stats::cor.test(vars.val.pass[,var1type],vars.val.pass[,var2type],method = "spearman"))
       test$call <- paste(var1type,"and",var2type,sep = " ")  
       val.test.inf <- flextable::flextable(test)
       flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -380,7 +379,7 @@ numeric.integer.numeric.integer <- function(vars.val.pass,var1type,var2type){
   }else if(class(vars.val.pass[,var1type]) == "integer" || class(vars.val.pass[,var2type]) == "integer"){
     
     #Spearman Correlation (one integer variable)
-    test <- tidyverse::tidy(my.Spearman <- stats::cor.test(vars.val.pass[,var1type],vars.val.pass[,var2type],method = "spearman"))
+    test <- broom::tidy(my.Spearman <- stats::cor.test(vars.val.pass[,var1type],vars.val.pass[,var2type],method = "spearman"))
     test$call <- paste(var1type,"and",var2type,sep = " ")  
     val.test.inf <- flextable::flextable(test)
     flextable::body_add_flextable(my_doc, flextable::autofit(flextable::fontsize(val.test.inf, size = 6, part = "all")), pos="after",split = TRUE) 
@@ -659,7 +658,7 @@ sink()
 #'
 #' This R Package asks for a .csv file with data and returns a report (.docx) with Inference Report concerning all possible combinations of variables (i.e. columns).
 #' 
-#' @import officer nortest flextable tidyverse broom tictoc stats utils 
+#' @import officer nortest flextable broom tictoc stats utils 
 #'
 #' @param path (Optional) A character vector with the path to data file. If empty character string (""), interface will appear to choose file. 
 #' @param var.type (Optional) The type of variables to perform analysis, with possible values: "all", "numeric", "integer", "double", "factor", "character". 
