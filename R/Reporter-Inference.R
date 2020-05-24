@@ -608,11 +608,14 @@ as.class <- FALSE
   data.vars.vector <- names(data)
   
   #type of selected vars
-  data.vars.vector <- data.vars.vector[which(class(data)==var.type)]
-  
-  if (length(data.vars.vector) < 2){
-	warning(paste("Not enough variables of type", var.type, "to proceed with Inference Reporting. Suggestion: use var.type input equal to all", sep=" "))
-	return()
+  if(var.type!="all"){
+      data.vars.vector <- data.vars.vector[which(class(data)==var.type)]
+
+      if (length(data.vars.vector) < 2){
+	 warning(paste("Not enough variables of type", var.type, "to proceed with Inference Reporting. Suggestion: use var.type input equal to all", sep=" "))
+	 return()
+      }
+
   }
   
   var.comb <- t(utils::combn(data.vars.vector,2))
