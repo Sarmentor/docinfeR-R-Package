@@ -24,13 +24,13 @@ file_out <- file(paste(path,"-REPORT-INFERENCE-",var.type,".docx",sep = ""),open
 #defining the document name
 if(grepl("linux",tolower(my.OS))){
   my.time <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
-  aux.file.path <- paste(path,"-REPORT-INFERENCE-ALL.docx",sep = "")
+  aux.file.path <- paste(path,"-REPORT-INFERENCE-",var.type,".docx",sep = "")
   aux.file.report <- file_out
   dir.create("/tmp/data/", showWarnings = FALSE)
   aux.file.rdata <- paste("/tmp/data/", my.time,"-TEMP.DATA",sep="")
 }else{
   my.time <- format(Sys.time(), "%Y-%m-%d_%H%M%S")
-  aux.file.path <- paste(path,"-REPORT-INFERENCE-ALL.docx",sep = "")
+  aux.file.path <- paste(path,"-REPORT-INFERENCE-",var.type,".docx",sep = "")
   dir.create("/tmp/data/", showWarnings = FALSE)
   aux.file.rdata <- paste("/tmp/data/", my.time,"-TEMP.DATA",sep="")
 }
@@ -599,9 +599,6 @@ if(is.null(file1)){return(NULL)}
   
 data <- utils::read.table(path,sep=SEP,header=HEADER)
 
-#VARS   
-as.class <- FALSE
-
 #Inference Analysis
   
   #variables combinations
@@ -609,7 +606,7 @@ as.class <- FALSE
   
   #type of selected vars
   if(var.type!="all"){
-      data.vars.vector <- data.vars.vector[which(class(data)==var.type)]
+      data.vars.vector <- data.vars.vector[which(sapply(data,class)==var.type)]
 
       if (length(data.vars.vector) < 2){
 	 warning(paste("Not enough variables of type", var.type, "to proceed with Inference Reporting. Suggestion: use var.type input equal to all", sep=" "))
@@ -676,5 +673,5 @@ sink()
 #' @references
 #' \insertAllCited{}
 docinfeR <- function(path="", var.type="all"){
-	main(path,var.type="all")
+	main(path,var.type=var.type)
 }
