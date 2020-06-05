@@ -659,6 +659,7 @@ sink()
 #' This R Package asks for a .csv file with data and returns a report (.docx) with Inference Report concerning all possible combinations of variables (i.e. columns).
 #' 
 #' @import officer nortest flextable broom tictoc stats utils 
+#' @importFrom Rdpack reprompt
 #'
 #' @param path (Optional) A character vector with the path to data file. If empty character string (""), interface will appear to choose file. 
 #' @param var.type (Optional) The type of variables to perform analysis, with possible values: "all", "numeric", "integer", "double", "factor", "character". 

@@ -20,4 +20,4 @@ Imports:
 LinkingTo: 
 RcppModules: 
 SystemRequirements: 
-RoxygenNote: 
+RoxygenNote: 7.0.2
