@@ -672,7 +672,7 @@ sink()
 #' }
 #' @references
 #' \insertAllCited{}
-#'  @export
+#' @export
 docinfeR <- function(path="", var.type="all"){
 	main(path,var.type=var.type)
 }
