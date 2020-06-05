@@ -672,7 +672,7 @@ sink()
 #' docinfeR(path="iriscsvfile.csv")
 #' }
 #' @references
-#' \insertAllCited{}
+#' 	\insertAllCited{}
 #' @export
 docinfeR <- function(path="", var.type="all"){
 	main(path,var.type=var.type)

@@ -25,6 +25,4 @@ write.csv(iris,file="iriscsvfile.csv")
 docinfeR(path="iriscsvfile.csv")
 }
 }
-\references{
-\insertAllCited{}
-}
+\insertRef{sarmento2017comparative}{docinfeR}
