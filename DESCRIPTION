@@ -16,7 +16,9 @@ Imports:
 	broom,
 	tictoc,
 	stats,
-	utils
+	utils,
+	Rdpack
+RdMacros: Rdpack
 LinkingTo: 
 RcppModules: 
 SystemRequirements: 
