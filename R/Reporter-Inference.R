@@ -667,9 +667,11 @@ sink()
 #'   will be a document in the temp folder (tempdir()).
 #' @examples
 #' \donttest{
+#' library(docinfeR)
 #' data(iris)
-#' write.csv(iris,file="iriscsvfile.csv")
-#' docinfeR(path="iriscsvfile.csv")
+#' dir = tempdir()
+#' write.csv(iris,file=paste(dir,"iriscsvfile.csv",sep=""))
+#' docinfeR(path=paste(dir,"iriscsvfile.csv",sep=""))
 #' }
 #' @references
 #' 	\insertAllCited{}

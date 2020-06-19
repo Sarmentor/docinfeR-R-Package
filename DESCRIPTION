@@ -1,6 +1,6 @@
 Package: docinfeR
 Type: Package
-Title: Automatic reporter for inference analysis
+Title: Automatic Reporter for Inference Analysis
 Version: 2020.1.0
 Author: Rui Portocarrero Sarmento, Vera Costa
 Maintainer: Rui P. Sarmento <email@ruisarmento.com>
@@ -16,8 +16,10 @@ Imports:
 	broom,
 	tictoc,
 	stats,
-	utils
+	utils,
+	Rdpack
 LinkingTo: 
 RcppModules: 
 SystemRequirements: 
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
+RdMacros: Rdpack

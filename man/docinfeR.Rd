@@ -20,9 +20,13 @@ This R Package asks for a .csv file with data and returns a report (.docx) with 
 }
 \examples{
 \donttest{
+library(docinfeR)
 data(iris)
-write.csv(iris,file="iriscsvfile.csv")
-docinfeR(path="iriscsvfile.csv")
+dir = tempdir()
+write.csv(iris,file=paste(dir,"iriscsvfile.csv",sep=""))
+docinfeR(path=paste(dir,"iriscsvfile.csv",sep=""))
 }
 }
-\insertRef{sarmento2017comparative}{docinfeR}
+\references{
+\insertAllCited{}
+}
